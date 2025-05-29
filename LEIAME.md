@@ -59,11 +59,11 @@ Links:
 - Criar/Atualizar a Servlet para que:
   - Permita adicionar uma nova task
 
-### Fase 5: Servlets e Web (criar)
+### Fase 5: Servlets e Web (deletar)
 - Criar/Atualizar a Servlet para que:
   - Permita deletar nova task criada
 
-### Fase 6: Servlets e Web (criar)
+### Fase 6: Servlets e Web (editar)
 - Criar/Atualizar a Servlet para que:
   - Permita editar uma task criada
 
