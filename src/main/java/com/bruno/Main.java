@@ -54,13 +54,17 @@ public class Main {
                 StringBuilder list = new StringBuilder();
 
                 for (Task task : tasks) {
-                    list.append("<li>")
+                    list.append("<tr>")
+                            .append("<td>")
                             .append(task.id())
-                            .append(" | ")
+                            .append("</td>")
+                            .append("<td>")
                             .append(task.name())
-                            .append(" | ")
+                            .append("</td>")
+                            .append("<td>")
                             .append(task.completed())
-                            .append("</li>\n");
+                            .append("</td>")
+                            .append("</tr>");
                 }
 
                 html = html.replace("{{TASKS}}", list);

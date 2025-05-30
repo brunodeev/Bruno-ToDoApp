@@ -12,6 +12,7 @@
         padding: 0;
         box-sizing: border-box;
         font-family: 'Montserrat', sans-serif;
+        cursor: default;
     }
 
     body {
@@ -30,15 +31,40 @@
         font-weight: bolder;
     }
 
-    li {
-        display: flex;
-        align-items: center;
+    table {
+        border-collapse: collapse;
         border-radius: 10px;
-        padding: 10px;
-        width: 350px;
-        height: 30px;
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, .15);
-        margin-bottom: 10px;
+        box-shadow: 0 0 0 1px #dddddd;
+        font-size: 20px;
+        -moz-border-radius: 20px;
+    }
+
+    th {
+        font-weight: 600;
+        border-bottom: 1px solid #dddddd;
+    }
+
+    td {
+        border-top: 1px solid #dddddd;
+    }
+
+    td, th {
+        text-align: left;
+        padding: 5px 10px 5px 10px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f1f1f1;
+    }
+
+    th:nth-child(even) {
+        border-left: 1px solid #dddddd;
+        border-right: 1px solid #dddddd;
+    }
+
+    td:nth-child(even) {
+        border-left: 1px solid #dddddd;
+        border-right: 1px solid #dddddd;
     }
 
     footer {
@@ -54,9 +80,14 @@
 <body>
     <main>
         <h1>Tarefas</h1>
-        <ul>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Completed</th>
+            </tr>
             {{TASKS}}
-        </ul>
+        </table>
     </main>
 
     <footer>
