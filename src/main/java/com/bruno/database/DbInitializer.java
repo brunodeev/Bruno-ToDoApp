@@ -28,7 +28,6 @@ public class DbInitializer {
             Statement statement = conn.createStatement();
 
             statement.execute(sql);
-            System.out.println("Tabelas criadas com sucesso!");
 
         } catch (SQLException e) {
             e.printStackTrace();

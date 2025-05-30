@@ -22,7 +22,6 @@ public class TaskDaoImpl implements TaskDao {
             statement.setBoolean(2, task.completed());
 
             statement.execute();
-            System.out.println("Task criada com sucesso!");
 
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -46,8 +45,6 @@ public class TaskDaoImpl implements TaskDao {
             statement.setInt(1, id);
 
             statement.execute();
-
-            System.out.println("Task removida com sucesso!");
         } catch (SQLException e) {
             e.printStackTrace();
         }

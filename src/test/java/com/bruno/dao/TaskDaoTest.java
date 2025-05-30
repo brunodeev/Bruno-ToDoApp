@@ -25,6 +25,21 @@ public class TaskDaoTest {
     }
 
     @Test
+    void shouldRemoveTask() {
+        var id = taskDao.addTask(new Task(null, "Task a deletar", false));
+        taskDao.removeTaskById(id);
+        var tasks = taskDao.listAllTasks();
+        Assertions.assertTrue(tasks.isEmpty());
+    }
+
+    @Test
+    void shouldGetTaskById() {
+        var id = taskDao.addTask(new Task(null, "Task a ser buscada", false));
+        var task = taskDao.getTaskById(id);
+        Assertions.assertEquals(id, task.id());
+    }
+
+    @Test
     void shouldListAllTasks() {
         var id1 = taskDao.addTask(new Task(null, "Listar tarefa 1", false));
         var id2 = taskDao.addTask(new Task(null, "Listar tarefa 2", false));
