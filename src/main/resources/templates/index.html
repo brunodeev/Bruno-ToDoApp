@@ -27,11 +27,17 @@
     }
 
     h1 {
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         font-weight: bolder;
     }
 
+    .container {
+        display: flex;
+        justify-content: space-between;
+    }
+
     table {
+        margin-top: 30px;
         border-collapse: collapse;
         border-radius: 10px;
         box-shadow: 0 0 0 1px #dddddd;
@@ -67,6 +73,15 @@
         border-right: 1px solid #dddddd;
     }
 
+    input {
+        width: 200px;
+        height: 30px;
+        padding-left: 10px;
+        border-radius: 10px;
+        border: 1px solid #dddddd;
+        outline: none;
+    }
+
     footer {
         display: flex;
         justify-content: center;
@@ -80,14 +95,19 @@
 <body>
     <main>
         <h1>Tarefas</h1>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Description</th>
-                <th>Completed</th>
-            </tr>
-            {{TASKS}}
-        </table>
+
+        <div class="container">
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Description</th>
+                    <th>Completed</th>
+                </tr>
+                {{TASKS}}
+            </table>
+
+            <input placeholder="Buscar tarefa" />
+        </div>
     </main>
 
     <footer>
