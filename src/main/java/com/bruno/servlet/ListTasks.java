@@ -39,21 +39,31 @@ public class ListTasks extends HttpServlet {
 
         StringBuilder list = new StringBuilder();
 
-        for (Task task : tasks) {
-            list.append("<tr>")
-                    .append("<td>")
-                    .append(task.id())
-                    .append("</td>")
-                    .append("<td>")
-                    .append(task.name())
-                    .append("</td>")
-                    .append("<td>")
-                    .append(task.completed())
-                    .append("</td>")
-                    .append("</tr>");
-        }
+        if (tasks.isEmpty()) {
+            list.append("<span>Você não tem nenhuma tarefa</span>");
+            html = html.replace("{{TASKS}}", list);
+        } else {
+            list.append("<table><tr><th>ID</th><th>Descrição</th><th>Completo</th></tr>");
 
-        html = html.replace("{{TASKS}}", list);
+
+            for (Task task : tasks) {
+                list.append("<tr>")
+                        .append("<td>")
+                        .append(task.id())
+                        .append("</td>")
+                        .append("<td>")
+                        .append(task.name())
+                        .append("</td>")
+                        .append("<td>")
+                        .append(task.completed() ? "Concluído" : "Não concluído")
+                        .append("</td>")
+                        .append("</tr>");
+            }
+
+            list.append("</table>");
+
+            html = html.replace("{{TASKS}}", list);
+        }
 
         response.setContentType("text/html");
         response.setStatus(200);

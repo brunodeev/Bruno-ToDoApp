@@ -15,11 +15,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
         DbInitializer.createDatabases();
 
-        TaskDao taskDao = new TaskDaoImpl();
-
-        taskDao.addTask(new Task(null, "Criar aplicação servlet em java", true));
-        taskDao.addTask(new Task(null, "Aplicar html no endpoint", true));
-
         ServletContextHandler servletHandler = new ServletContextHandler();
 
         servletHandler.addServlet(new ServletHolder(new ListTasks()), "/list");
