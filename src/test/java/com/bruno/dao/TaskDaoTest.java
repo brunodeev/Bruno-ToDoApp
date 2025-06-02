@@ -48,4 +48,11 @@ public class TaskDaoTest {
         taskDao.removeTaskById(id1);
         taskDao.removeTaskById(id2);
     }
+
+    @Test
+    void shouldUpdateTasks() {
+        var id1 = taskDao.addTask(new Task(null, "Task sem alteração", false));
+        var updated = taskDao.updateTask(new Task(id1, "Task alterada", true));
+        Assertions.assertTrue(updated);
+    }
 }
