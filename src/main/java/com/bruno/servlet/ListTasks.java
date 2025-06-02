@@ -43,27 +43,30 @@ public class ListTasks extends HttpServlet {
             list.append("<span>Você não tem nenhuma tarefa</span>");
             html = html.replace("{{TASKS}}", list);
         } else {
-            list.append("<table><tr><th>ID</th><th>Descrição</th><th>Completo</th><th></th></tr>");
+            list.append("<table><tr><th>ID</th><th>Descrição</th><th>Completo</th><th></th><th></th></tr>");
 
 
             for (Task task : tasks) {
                 list.append("<tr>")
+                        .append("<td>").append(task.id()).append("</td>")
+                        .append("<td>").append(task.name()).append("</td>")
+                        .append("<td>").append(task.completed() ? "Concluído" : "Não concluído").append("</td>")
+
                         .append("<td>")
-                        .append(task.id())
+                        .append("<form method='get' action='/edit'>")
+                        .append("<input type='hidden' name='idEdit' value='").append(task.id()).append("'>")
+                        .append("<button type='submit' id='edit'>Editar</button>")
+                        .append("</form>")
                         .append("</td>")
+
                         .append("<td>")
-                        .append(task.name())
+                        .append("<form method='post' action='/delete'>")
+                        .append("<input type='hidden' name='idDelete' value='").append(task.id()).append("'>")
+                        .append("<button type='submit' id='delete'>Deletar</button>")
+                        .append("</form>")
                         .append("</td>")
-                        .append("<td>")
-                        .append(task.completed() ? "Concluído" : "Não concluído")
-                        .append("</td>")
-                        .append("<td>")
-                        .append("<form method='post' action='/delete'><input type='hidden' name='id' value='")
-                        .append(task.id())
-                        .append("'><button type='submit'>Deletar</button>")
-                        .append("</td>")
-                        .append("</tr>")
-                        .append("</form>");
+
+                        .append("</tr>");
             }
 
             list.append("</table>");

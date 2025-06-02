@@ -95,4 +95,24 @@ public class TaskDaoImpl implements TaskDao {
 
         return tasks;
     }
+
+    @Override
+    public boolean updateTask(Task task) {
+        String sql = "UPDATE tasks SET name = ?, completed = ? WHERE id = ?";
+
+        try {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, task.name());
+            statement.setBoolean(2, task.completed());
+            statement.setInt(3, task.id());
+
+            int rowsAffected = statement.executeUpdate();
+
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }

@@ -70,18 +70,10 @@
 </style>
 <body>
     <main>
-        <h1>Cadastrar Tarefa</h1>
+        <h1>Editar Tarefa</h1>
 
-        <form action="/create" method="post">
-            <label for="name">Nome</label>
-            <input id="name" name="name">
-
-            <label for="concluded">Concluído</label>
-            <select id="concluded" name="concluded">
-                <option value="false">Não concluído</option>
-                <option value="true">Concluído</option>
-            </select>
-
+        <form action="/edit" method="post">
+            {{DATA}}
             <button type="submit">Cadastrar</button>
         </form>
     </main>

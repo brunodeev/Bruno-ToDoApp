@@ -14,7 +14,7 @@ public class DeleteTask extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            String id = request.getParameter("id");
+            String id = request.getParameter("idDelete");
             taskDao.removeTaskById(Integer.parseInt(id));
 
             response.setStatus(200);

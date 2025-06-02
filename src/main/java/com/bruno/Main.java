@@ -6,6 +6,7 @@ import com.bruno.database.DbInitializer;
 import com.bruno.model.Task;
 import com.bruno.servlet.CreateTask;
 import com.bruno.servlet.DeleteTask;
+import com.bruno.servlet.EditTask;
 import com.bruno.servlet.ListTasks;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -21,11 +22,13 @@ public class Main {
         servletHandler.addServlet(new ServletHolder(new ListTasks()), "/list");
         servletHandler.addServlet(new ServletHolder(new CreateTask()), "/create");
         servletHandler.addServlet(new ServletHolder(new DeleteTask()), "/delete");
+        servletHandler.addServlet(new ServletHolder(new EditTask()), "/edit");
 
         Server server = new Server(8080);
         server.setHandler(servletHandler);
         server.start();
 
         System.out.println("API RODANDO EM http://localhost:8080/list");
+        server.join();
     }
 }

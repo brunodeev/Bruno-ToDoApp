@@ -14,4 +14,5 @@ public interface TaskDao {
 
     List<Task> listAllTasks();
 
+    boolean updateTask(Task task);
 }
