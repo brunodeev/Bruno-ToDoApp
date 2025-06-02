@@ -17,7 +17,7 @@ public class ListTasks extends HttpServlet {
     TaskDao taskDao = new TaskDaoImpl();
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<Task> tasks = new ArrayList<>();
 
         try {

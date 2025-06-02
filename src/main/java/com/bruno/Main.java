@@ -4,6 +4,7 @@ import com.bruno.dao.TaskDao;
 import com.bruno.daoImpl.TaskDaoImpl;
 import com.bruno.database.DbInitializer;
 import com.bruno.model.Task;
+import com.bruno.servlet.CreateTask;
 import com.bruno.servlet.ListTasks;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -19,10 +20,10 @@ public class Main {
         taskDao.addTask(new Task(null, "Criar aplicação servlet em java", true));
         taskDao.addTask(new Task(null, "Aplicar html no endpoint", true));
 
-
-
         ServletContextHandler servletHandler = new ServletContextHandler();
+
         servletHandler.addServlet(new ServletHolder(new ListTasks()), "/list");
+        servletHandler.addServlet(new ServletHolder(new CreateTask()), "/create");
 
         Server server = new Server(8080);
         server.setHandler(servletHandler);
