@@ -1,9 +1,6 @@
 package com.bruno;
 
-import com.bruno.dao.TaskDao;
-import com.bruno.daoImpl.TaskDaoImpl;
 import com.bruno.database.DbInitializer;
-import com.bruno.model.Task;
 import com.bruno.servlet.CreateTask;
 import com.bruno.servlet.DeleteTask;
 import com.bruno.servlet.EditTask;
@@ -19,6 +16,7 @@ public class Main {
 
         ServletContextHandler servletHandler = new ServletContextHandler();
 
+        servletHandler.addServlet(new ServletHolder(new ListTasks()), "/");
         servletHandler.addServlet(new ServletHolder(new ListTasks()), "/list");
         servletHandler.addServlet(new ServletHolder(new CreateTask()), "/create");
         servletHandler.addServlet(new ServletHolder(new DeleteTask()), "/delete");

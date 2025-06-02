@@ -43,7 +43,7 @@ public class ListTasks extends HttpServlet {
             list.append("<span>Você não tem nenhuma tarefa</span>");
             html = html.replace("{{TASKS}}", list);
         } else {
-            list.append("<table><tr><th>ID</th><th>Descrição</th><th>Completo</th><th></th><th></th></tr>");
+            list.append("<table><tr><th>ID</th><th>Descrição</th><th>Concluído</th><th></th><th></th></tr>");
 
 
             for (Task task : tasks) {

@@ -37,12 +37,19 @@ public class CreateTask extends HttpServlet {
         String concluded = request.getParameter("concluded");
 
         try {
-            taskDao.addTask(new Task(null, name, Boolean.parseBoolean(concluded)));
+            if (!name.isEmpty()) {
+                taskDao.addTask(new Task(null, name, Boolean.parseBoolean(concluded)));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        response.setStatus(200);
-        response.sendRedirect("/list");
+        if (!name.isEmpty()) {
+            response.setStatus(200);
+            response.sendRedirect("/list");
+        } else {
+            response.setStatus(400);
+            response.sendRedirect("/create");
+        }
     }
 }

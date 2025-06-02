@@ -60,7 +60,7 @@
     }
 
     tr:nth-child(even) {
-        background-color: #f1f1f1;
+        background-color: #f4f4f4;
     }
 
     th:nth-child(even) {
@@ -100,6 +100,19 @@
         outline: none;
         cursor: pointer;
         border: 1px solid #dddddd;
+    }
+
+    td:nth-child(1) {
+        border-radius: 0 0 0 10px;
+    }
+
+    td:nth-child(5) {
+        border-radius: 0 0 10px 0;
+        border-left: none;
+    }
+
+    td:nth-child(4) {
+        border-right: none;
     }
 
     #delete {
