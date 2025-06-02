@@ -43,7 +43,7 @@ public class ListTasks extends HttpServlet {
             list.append("<span>Você não tem nenhuma tarefa</span>");
             html = html.replace("{{TASKS}}", list);
         } else {
-            list.append("<table><tr><th>ID</th><th>Descrição</th><th>Completo</th></tr>");
+            list.append("<table><tr><th>ID</th><th>Descrição</th><th>Completo</th><th></th></tr>");
 
 
             for (Task task : tasks) {
@@ -57,7 +57,13 @@ public class ListTasks extends HttpServlet {
                         .append("<td>")
                         .append(task.completed() ? "Concluído" : "Não concluído")
                         .append("</td>")
-                        .append("</tr>");
+                        .append("<td>")
+                        .append("<form method='post' action='/delete'><input type='hidden' name='id' value='")
+                        .append(task.id())
+                        .append("'><button type='submit'>Deletar</button>")
+                        .append("</td>")
+                        .append("</tr>")
+                        .append("</form>");
             }
 
             list.append("</table>");

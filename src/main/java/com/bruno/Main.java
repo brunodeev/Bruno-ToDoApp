@@ -5,6 +5,7 @@ import com.bruno.daoImpl.TaskDaoImpl;
 import com.bruno.database.DbInitializer;
 import com.bruno.model.Task;
 import com.bruno.servlet.CreateTask;
+import com.bruno.servlet.DeleteTask;
 import com.bruno.servlet.ListTasks;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -19,6 +20,7 @@ public class Main {
 
         servletHandler.addServlet(new ServletHolder(new ListTasks()), "/list");
         servletHandler.addServlet(new ServletHolder(new CreateTask()), "/create");
+        servletHandler.addServlet(new ServletHolder(new DeleteTask()), "/delete");
 
         Server server = new Server(8080);
         server.setHandler(servletHandler);
