@@ -73,14 +73,19 @@
         border-right: 1px solid #dddddd;
     }
 
-    input {
-        width: 200px;
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 150px;
         height: 30px;
         padding-left: 10px;
         border-radius: 10px;
         border: 1px solid #dddddd;
         outline: none;
-        cursor: text;
+        color: black;
+        cursor: pointer;
+        text-decoration: none;
     }
 
     footer {
@@ -107,7 +112,7 @@
                 {{TASKS}}
             </table>
 
-            <input placeholder="Buscar tarefa" />
+            <a href="/pagina">Nova tarefa</a>
         </div>
     </main>
 
