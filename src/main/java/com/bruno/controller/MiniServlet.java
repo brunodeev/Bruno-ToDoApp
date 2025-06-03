@@ -1,9 +1,7 @@
 package com.bruno.controller;
 
-import com.bruno.dao.TaskDao;
-import com.bruno.daoImpl.TaskDaoImpl;
-import com.bruno.model.Task;
 import com.bruno.view.CreateTaskPage;
+import com.bruno.view.EditTaskPage;
 import com.bruno.view.ListTasksPage;
 import com.bruno.model.Page;
 import jakarta.servlet.http.HttpServlet;
@@ -28,6 +26,7 @@ public class MiniServlet extends HttpServlet {
         Page page = switch (path) {
             case "/list" -> new ListTasksPage();
             case "/create" -> new CreateTaskPage();
+            case "/edit" -> new EditTaskPage();
             default -> null;
         };
 
@@ -55,6 +54,7 @@ public class MiniServlet extends HttpServlet {
         switch (path) {
             case "/create" -> new CreateTask().handle(request, response);
             case "/delete" -> new DeleteTask().handle(request, response);
+            case "/edit" -> new EditTask().handle(request, response);
             default -> {
                 response.setStatus(404);
                 response.getWriter().write("<h1>Ação não corresondente</h1>");

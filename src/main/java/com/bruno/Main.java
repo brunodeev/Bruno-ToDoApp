@@ -1,6 +1,5 @@
 package com.bruno;
 
-import com.bruno.controller.CreateTask;
 import com.bruno.controller.MiniServlet;
 import com.bruno.database.DbInitializer;
 import org.eclipse.jetty.server.Server;
