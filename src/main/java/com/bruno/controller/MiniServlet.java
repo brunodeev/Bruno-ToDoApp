@@ -20,7 +20,10 @@ public class MiniServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String path = request.getPathInfo();
 
-        if (path == null) path = "/list";
+        if (path == null || path.equals("/")) {
+            response.sendRedirect("/list");
+            return;
+        }
 
         Page page = switch (path) {
             case "/list" -> new ListTasksPage();
@@ -51,12 +54,19 @@ public class MiniServlet extends HttpServlet {
         String path = request.getPathInfo();
 
         switch (path) {
-            case "/create-task" -> {
+            case "/create" -> {
                 String name = request.getParameter("name");
                 String concluded = request.getParameter("concluded");
 
                 taskDao.addTask(new Task(null, name, Boolean.parseBoolean(concluded)));
 
+                response.sendRedirect("/list");
+            }
+            case "/delete" -> {
+                String id = request.getParameter("idDelete");
+                taskDao.removeTaskById(Integer.parseInt(id));
+
+                response.setStatus(200);
                 response.sendRedirect("/list");
             }
             default -> {
