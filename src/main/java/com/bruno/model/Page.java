@@ -1,4 +1,4 @@
-package com.bruno.view;
+package com.bruno.model;
 
 import java.util.Map;
 

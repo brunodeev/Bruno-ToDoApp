@@ -1,7 +1,11 @@
 package com.bruno.controller;
 
+import com.bruno.dao.TaskDao;
+import com.bruno.daoImpl.TaskDaoImpl;
+import com.bruno.model.Task;
+import com.bruno.view.CreateTaskPage;
 import com.bruno.view.ListTasksPage;
-import com.bruno.view.Page;
+import com.bruno.model.Page;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,6 +24,7 @@ public class MiniServlet extends HttpServlet {
 
         Page page = switch (path) {
             case "/list" -> new ListTasksPage();
+            case "/create" -> new CreateTaskPage();
             default -> null;
         };
 
@@ -38,5 +43,26 @@ public class MiniServlet extends HttpServlet {
         String html = page.render(parameters);
         response.setContentType("text/html");
         response.getWriter().write(html);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        TaskDao taskDao = new TaskDaoImpl();
+        String path = request.getPathInfo();
+
+        switch (path) {
+            case "/create-task" -> {
+                String name = request.getParameter("name");
+                String concluded = request.getParameter("concluded");
+
+                taskDao.addTask(new Task(null, name, Boolean.parseBoolean(concluded)));
+
+                response.sendRedirect("/list");
+            }
+            default -> {
+                response.setStatus(404);
+                response.getWriter().write("<h1>Ação não corresondente</h1>");
+            }
+        };
     }
 }

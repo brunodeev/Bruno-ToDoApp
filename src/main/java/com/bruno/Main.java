@@ -1,10 +1,8 @@
 package com.bruno;
 
+import com.bruno.controller.CreateTask;
 import com.bruno.controller.MiniServlet;
 import com.bruno.database.DbInitializer;
-import com.bruno.controller.CreateTask;
-import com.bruno.controller.DeleteTask;
-import com.bruno.controller.EditTask;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -15,11 +13,7 @@ public class Main {
         DbInitializer.createDatabases();
 
         ServletContextHandler servletHandler = new ServletContextHandler();
-
-//        servletHandler.addServlet(new ServletHolder(new CreateTask()), "/create");
-//        servletHandler.addServlet(new ServletHolder(new DeleteTask()), "/delete");
-//        servletHandler.addServlet(new ServletHolder(new EditTask()), "/edit");
-        servletHandler.addServlet(new ServletHolder(new MiniServlet()), "/");
+        servletHandler.addServlet(new ServletHolder(new MiniServlet()), "/*");
 
         Server server = new Server(8080);
         server.setHandler(servletHandler);

@@ -2,6 +2,7 @@ package com.bruno.view;
 
 import com.bruno.dao.TaskDao;
 import com.bruno.daoImpl.TaskDaoImpl;
+import com.bruno.model.Page;
 import com.bruno.model.Task;
 
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
-public class ListTasksPage implements Page{
+public class ListTasksPage implements Page {
     TaskDao taskDao = new TaskDaoImpl();
 
     @Override

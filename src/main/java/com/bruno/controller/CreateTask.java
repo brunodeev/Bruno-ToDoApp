@@ -8,29 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 public class CreateTask extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String html;
-
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("templates/create.html")) {
-
-            if (input == null) {
-                response.setStatus(500);
-                response.getWriter().write("Erro ao ler arquivo html!");
-                return;
-            }
-
-            html = new String(input.readAllBytes(), StandardCharsets.UTF_8);
-        }
-
-        response.setContentType("text/html");
-        response.setStatus(200);
-        response.getWriter().write(html);
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
