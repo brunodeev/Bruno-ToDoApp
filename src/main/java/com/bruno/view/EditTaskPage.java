@@ -19,6 +19,10 @@ public class EditTaskPage implements Page {
 
         Task task = taskDao.getTaskById(id);
 
+        if (task == null) {
+            return new NotFoundPage().render(parameters);
+        }
+
         String html;
 
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("templates/edit.html")) {

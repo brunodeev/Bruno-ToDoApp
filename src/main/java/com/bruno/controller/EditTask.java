@@ -13,6 +13,7 @@ public class EditTask {
 
     public void handle(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("idEdit"));
+
         String name = request.getParameter("name");
         boolean concluded = Boolean.parseBoolean(request.getParameter("concluded"));
 
