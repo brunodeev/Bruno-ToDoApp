@@ -1,43 +1,34 @@
-package com.bruno.controller;
+package com.bruno.view;
 
 import com.bruno.dao.TaskDao;
 import com.bruno.daoImpl.TaskDaoImpl;
 import com.bruno.model.Task;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class ListTasks extends HttpServlet {
+public class ListTasksPage implements Page{
     TaskDao taskDao = new TaskDaoImpl();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<Task> tasks = new ArrayList<>();
-
-        try {
-            tasks = taskDao.listAllTasks();
-        } catch (Exception e) {
-            response.setStatus(500);
-            response.getWriter().write("Internal Server Error!");
-        }
+    public String render(Map<String, Object> parameters) {
+        List<Task> tasks = taskDao.listAllTasks();
 
         String html;
 
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("templates/list.html")) {
 
             if (input == null) {
-                response.setStatus(500);
-                response.getWriter().write("Erro ao ler arquivo html!");
-                return;
+                html = null;
+                return html;
             }
 
             html = new String(input.readAllBytes(), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         StringBuilder list = new StringBuilder();
@@ -77,8 +68,6 @@ public class ListTasks extends HttpServlet {
             html = html.replace("{{TASKS}}", list);
         }
 
-        response.setContentType("text/html");
-        response.setStatus(200);
-        response.getWriter().write(html);
+        return html;
     }
 }

@@ -4,7 +4,6 @@ import com.bruno.database.DbInitializer;
 import com.bruno.controller.CreateTask;
 import com.bruno.controller.DeleteTask;
 import com.bruno.controller.EditTask;
-import com.bruno.controller.ListTasks;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
