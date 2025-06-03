@@ -3,16 +3,14 @@ package com.bruno.controller;
 import com.bruno.dao.TaskDao;
 import com.bruno.daoImpl.TaskDaoImpl;
 import com.bruno.model.Task;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-public class CreateTask extends HttpServlet {
+public class CreateTask {
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void handle(HttpServletRequest request, HttpServletResponse response) throws IOException {
         TaskDao taskDao = new TaskDaoImpl();
 
         String name = request.getParameter("name");

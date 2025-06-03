@@ -50,25 +50,11 @@ public class MiniServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        TaskDao taskDao = new TaskDaoImpl();
         String path = request.getPathInfo();
 
         switch (path) {
-            case "/create" -> {
-                String name = request.getParameter("name");
-                String concluded = request.getParameter("concluded");
-
-                taskDao.addTask(new Task(null, name, Boolean.parseBoolean(concluded)));
-
-                response.sendRedirect("/list");
-            }
-            case "/delete" -> {
-                String id = request.getParameter("idDelete");
-                taskDao.removeTaskById(Integer.parseInt(id));
-
-                response.setStatus(200);
-                response.sendRedirect("/list");
-            }
+            case "/create" -> new CreateTask().handle(request, response);
+            case "/delete" -> new DeleteTask().handle(request, response);
             default -> {
                 response.setStatus(404);
                 response.getWriter().write("<h1>Ação não corresondente</h1>");
