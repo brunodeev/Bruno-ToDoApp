@@ -4,6 +4,7 @@ import com.bruno.view.CreateTaskPage;
 import com.bruno.view.EditTaskPage;
 import com.bruno.view.ListTasksPage;
 import com.bruno.model.Page;
+import com.bruno.view.NotFoundPage;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,14 +28,8 @@ public class MiniServlet extends HttpServlet {
             case "/list" -> new ListTasksPage();
             case "/create" -> new CreateTaskPage();
             case "/edit" -> new EditTaskPage();
-            default -> null;
+            default -> new NotFoundPage();
         };
-
-        if (page == null) {
-            response.setStatus(404);
-            response.getWriter().write("<h1>Página não encontrada</h1>");
-            return;
-        }
 
         Map<String, Object> parameters = new HashMap<>();
 
@@ -55,10 +50,7 @@ public class MiniServlet extends HttpServlet {
             case "/create" -> new CreateTask().handle(request, response);
             case "/delete" -> new DeleteTask().handle(request, response);
             case "/edit" -> new EditTask().handle(request, response);
-            default -> {
-                response.setStatus(404);
-                response.getWriter().write("<h1>Ação não corresondente</h1>");
-            }
-        };
+            default -> response.sendRedirect("/404");
+        }
     }
 }
