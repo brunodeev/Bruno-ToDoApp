@@ -1,4 +1,4 @@
-package com.bruno.servlet;
+package com.bruno.controller;
 
 import com.bruno.dao.TaskDao;
 import com.bruno.daoImpl.TaskDaoImpl;
@@ -27,15 +27,18 @@ public class ListTasks extends HttpServlet {
             response.getWriter().write("Internal Server Error!");
         }
 
-        InputStream input = getClass().getClassLoader().getResourceAsStream("templates/list.html");
+        String html;
 
-        if (input == null) {
-            response.setStatus(500);
-            response.getWriter().write("Erro ao ler arquivo html!");
-            return;
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("templates/list.html")) {
+
+            if (input == null) {
+                response.setStatus(500);
+                response.getWriter().write("Erro ao ler arquivo html!");
+                return;
+            }
+
+            html = new String(input.readAllBytes(), StandardCharsets.UTF_8);
         }
-
-        String html = new String(input.readAllBytes(), StandardCharsets.UTF_8);
 
         StringBuilder list = new StringBuilder();
 

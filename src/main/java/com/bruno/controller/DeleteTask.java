@@ -1,4 +1,4 @@
-package com.bruno.servlet;
+package com.bruno.controller;
 
 import com.bruno.dao.TaskDao;
 import com.bruno.daoImpl.TaskDaoImpl;
