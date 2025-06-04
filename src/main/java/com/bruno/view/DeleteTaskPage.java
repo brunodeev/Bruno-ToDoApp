@@ -1,10 +1,12 @@
 package com.bruno.view;
 
+import com.bruno.annotation.Rota;
 import com.bruno.dao.TaskDao;
 import com.bruno.daoImpl.TaskDaoImpl;
 import com.bruno.model.Page;
 import java.util.Map;
 
+@Rota("/delete")
 public class DeleteTaskPage implements Page {
 
     private final TaskDao taskDao = new TaskDaoImpl();

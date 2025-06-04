@@ -1,5 +1,6 @@
 package com.bruno.view;
 
+import com.bruno.annotation.Rota;
 import com.bruno.dao.TaskDao;
 import com.bruno.daoImpl.TaskDaoImpl;
 import com.bruno.model.Page;
@@ -11,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
+@Rota("/list")
 public class ListTasksPage implements Page {
     TaskDao taskDao = new TaskDaoImpl();
 

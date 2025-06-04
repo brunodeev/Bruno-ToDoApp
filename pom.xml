@@ -41,6 +41,12 @@
             <version>6.1.0</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>io.github.classgraph</groupId>
+            <artifactId>classgraph</artifactId>
+            <version>4.8.179</version>
+        </dependency>
     </dependencies>
 
     <properties>

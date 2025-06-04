@@ -1,5 +1,6 @@
 package com.bruno.view;
 
+import com.bruno.annotation.Rota;
 import com.bruno.dao.TaskDao;
 import com.bruno.daoImpl.TaskDaoImpl;
 import com.bruno.model.Page;
@@ -10,6 +11,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+@Rota("/edit")
 public class EditTaskPage implements Page {
     TaskDao taskDao = new TaskDaoImpl();
 
