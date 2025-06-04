@@ -1,7 +1,10 @@
 package com.bruno.controller;
 
+import com.bruno.annotation.Rota;
 import com.bruno.view.*;
 import com.bruno.model.Page;
+import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ScanResult;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,6 +15,27 @@ import java.util.Map;
 
 public class MiniServlet extends HttpServlet {
 
+    private final Map<String, Page> pageRouter = new HashMap<>();
+
+    @Override
+    public void init() {
+        try (ScanResult scanResult = new ClassGraph().enableAllInfo().acceptPackages("com.bruno.view").scan()) {
+            scanResult.getClassesWithAnnotation(Rota.class.getName()).forEach(classInfo -> {
+                try {
+                    Class<?> struct = classInfo.loadClass();
+                    Rota route = struct.getAnnotation(Rota.class);
+
+                    if (Page.class.isAssignableFrom(struct)) {
+                        Page page = (Page) struct.getDeclaredConstructor().newInstance();
+                        pageRouter.put(route.value(), page);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String path = request.getPathInfo();
@@ -21,13 +45,9 @@ public class MiniServlet extends HttpServlet {
             return;
         }
 
-        Page page = switch (path) {
-            case "/list" -> new ListTasksPage();
-            case "/create" -> new CreateTaskPage();
-            case "/edit" -> new EditTaskPage();
-            case "/delete" -> new DeleteTaskPage();
-            default -> new NotFoundPage();
-        };
+        Page page = pageRouter.getOrDefault(path, null);
+
+        if (page == null) page = pageRouter.get("/not-found");
 
         Map<String, Object> parameters = new HashMap<>();
 
