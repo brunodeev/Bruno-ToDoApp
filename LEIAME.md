@@ -92,6 +92,13 @@ public interface Page {
 - teste:teste
 
 
+### Fase 9: Conceitos de reflection
+- Crie uma anotação, chamage @Rota que recebe a rota, ex @Rota("/tasks)
+- Fazer scan das classes utilizando https://github.com/classgraph/classgraph
+- Filtrar somente as que possuem a anotação @Rota
+- Utilizar isso no MiniServer (Fase 7) pora acionar a pagina
+
+
 ## Tecnologias Utilizadas
 - Java 21
 - JDBC

@@ -15,12 +15,28 @@ public class EditTaskPage implements Page {
 
     @Override
     public String render(Map<String, Object> parameters) {
-        int id = Integer.parseInt((String) parameters.get("idEdit"));
 
+        if (parameters.containsKey("saveEdit")) {
+            int id = Integer.parseInt((String) parameters.get("idEdit"));
+            String name = (String) parameters.get("name");
+            boolean concluded = Boolean.parseBoolean((String) parameters.get("concluded"));
+
+            Task task = taskDao.getTaskById(id);
+            if (task == null) {
+                return "<meta http-equiv='refresh' content='0; URL=/not-found'>";
+            }
+
+            Task updated = new Task(id, name == null ? task.name() : name, concluded);
+            taskDao.updateTask(updated);
+
+            return "<meta http-equiv='refresh' content='0; URL=/list'>";
+        }
+
+        int id = Integer.parseInt((String) parameters.get("idEdit"));
         Task task = taskDao.getTaskById(id);
 
         if (task == null) {
-            return new NotFoundPage().render(parameters);
+            return "<meta http-equiv='refresh' content='0; URL=/not-found'>";
         }
 
         String html;
@@ -46,7 +62,8 @@ public class EditTaskPage implements Page {
                 .append("'><label for='concluded'>Concluído</label><select id='concluded' name='concluded'>")
                 .append(task.completed() ? "<option value='false'>Não concluído</option>" : "<option value='false' selected>Não concluído</option>")
                 .append(task.completed() ? "<option value='true' selected>Concluído</option>" : "<option value='true'>Concluído</option>")
-                .append("</select>");
+                .append("</select>")
+                .append("<input type='hidden' name='saveEdit' value='true'>");
 
         html = html.replace("{{DATA}}", insert);
 

@@ -1,10 +1,7 @@
 package com.bruno.controller;
 
-import com.bruno.view.CreateTaskPage;
-import com.bruno.view.EditTaskPage;
-import com.bruno.view.ListTasksPage;
+import com.bruno.view.*;
 import com.bruno.model.Page;
-import com.bruno.view.NotFoundPage;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,6 +25,7 @@ public class MiniServlet extends HttpServlet {
             case "/list" -> new ListTasksPage();
             case "/create" -> new CreateTaskPage();
             case "/edit" -> new EditTaskPage();
+            case "/delete" -> new DeleteTaskPage();
             default -> new NotFoundPage();
         };
 
@@ -40,17 +38,5 @@ public class MiniServlet extends HttpServlet {
         String html = page.render(parameters);
         response.setContentType("text/html");
         response.getWriter().write(html);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String path = request.getPathInfo();
-
-        switch (path) {
-            case "/create" -> new CreateTask().handle(request, response);
-            case "/delete" -> new DeleteTask().handle(request, response);
-            case "/edit" -> new EditTask().handle(request, response);
-            default -> response.sendRedirect("/404");
-        }
     }
 }

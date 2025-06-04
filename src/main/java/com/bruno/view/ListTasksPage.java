@@ -55,7 +55,7 @@ public class ListTasksPage implements Page {
                         .append("</td>")
 
                         .append("<td>")
-                        .append("<form method='post' action='/delete'>")
+                        .append("<form method='get' action='/delete'>")
                         .append("<input type='hidden' name='idDelete' value='").append(task.id()).append("'>")
                         .append("<button type='submit' id='delete'>Deletar</button>")
                         .append("</form>")
