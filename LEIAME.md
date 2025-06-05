@@ -91,13 +91,18 @@ public interface Page {
 
 - teste:teste
 
-
 ### Fase 9: Conceitos de reflection
 - Crie uma anotação, chamage @Rota que recebe a rota, ex @Rota("/tasks)
 - Fazer scan das classes utilizando https://github.com/classgraph/classgraph
 - Filtrar somente as que possuem a anotação @Rota
 - Utilizar isso no MiniServer (Fase 7) pora acionar a pagina
 
+### Fase 10: Hibernate
+- Renomear TaskDaoImpl para TaskDaoJdbc
+- Ler introdução: https://docs.jboss.org/hibernate/orm/7.0/introduction/html_single/Hibernate_Introduction.html
+- Instalar (via maven) e configurar o Hibernate (SessionFactory, etc)
+- Criar e implementar TaskDaoHibernate (atualizar teste)
+- Criar classe BeanFactory com um factory method (https://refactoring.guru/pt-br/design-patterns/factory-method) estatico para criar a TaskDao
 
 ## Tecnologias Utilizadas
 - Java 21
