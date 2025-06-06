@@ -11,6 +11,6 @@
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
 
-        <mapping class="com.bruno.model.Task" />
+        <mapping class="com.bruno.model.TaskHibernate" />
     </session-factory>
 </hibernate-configuration>

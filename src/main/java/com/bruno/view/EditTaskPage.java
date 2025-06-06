@@ -3,8 +3,10 @@ package com.bruno.view;
 import com.bruno.annotation.Route;
 import com.bruno.dao.TaskDao;
 import com.bruno.dao.TaskDaoJdbc;
+import com.bruno.factory.BeanFactory;
 import com.bruno.model.Page;
 import com.bruno.model.Task;
+import com.bruno.model.TaskHibernate;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +15,8 @@ import java.util.Map;
 
 @Route("/edit")
 public class EditTaskPage implements Page {
-    TaskDao taskDao = new TaskDaoJdbc();
+
+    TaskDao taskDao = BeanFactory.createTaskDao("HIBERNATE");
 
     @Override
     public String render(Map<String, Object> parameters) {
@@ -28,7 +31,7 @@ public class EditTaskPage implements Page {
                 return "<meta http-equiv='refresh' content='0; URL=/not-found'>";
             }
 
-            Task updated = new Task(id, name == null ? task.name() : name, concluded);
+            Task updated = new TaskHibernate(id, name == null ? task.getName() : name, concluded);
             taskDao.updateTask(updated);
 
             return "<meta http-equiv='refresh' content='0; URL=/list'>";
@@ -58,12 +61,12 @@ public class EditTaskPage implements Page {
         StringBuilder insert = new StringBuilder();
 
         insert.append("<input type='hidden' name='idEdit' value='")
-                .append(task.id())
+                .append(task.getId())
                 .append("'><label for='name'>Nome</label><input id='name' name='name' value='")
-                .append(task.name())
+                .append(task.getName())
                 .append("'><label for='concluded'>Concluído</label><select id='concluded' name='concluded'>")
-                .append(task.completed() ? "<option value='false'>Não concluído</option>" : "<option value='false' selected>Não concluído</option>")
-                .append(task.completed() ? "<option value='true' selected>Concluído</option>" : "<option value='true'>Concluído</option>")
+                .append(task.isCompleted() ? "<option value='false'>Não concluído</option>" : "<option value='false' selected>Não concluído</option>")
+                .append(task.isCompleted() ? "<option value='true' selected>Concluído</option>" : "<option value='true'>Concluído</option>")
                 .append("</select>")
                 .append("<input type='hidden' name='saveEdit' value='true'>");
 

@@ -3,8 +3,10 @@ package com.bruno.view;
 import com.bruno.annotation.Route;
 import com.bruno.dao.TaskDao;
 import com.bruno.dao.TaskDaoJdbc;
+import com.bruno.factory.BeanFactory;
 import com.bruno.model.Page;
 import com.bruno.model.Task;
+import com.bruno.model.TaskHibernate;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +16,7 @@ import java.util.Map;
 @Route("/create")
 public class CreateTaskPage implements Page {
 
-    private final TaskDao taskDao = new TaskDaoJdbc();
+    TaskDao taskDao = BeanFactory.createTaskDao("HIBERNATE");
 
     @Override
     public String render(Map<String, Object> parameters) {
@@ -25,7 +27,7 @@ public class CreateTaskPage implements Page {
 
             try {
                 if (!name.isEmpty()) {
-                    taskDao.addTask(new Task(null, name, Boolean.parseBoolean(concluded)));
+                    taskDao.addTask(new TaskHibernate(null, name, Boolean.parseBoolean(concluded)));
                     return "<meta http-equiv='refresh' content='0; URL=/list'>";
                 } else {
                     return "<meta http-equiv='refresh' content='0; URL=/create'>";

@@ -96,7 +96,7 @@ public class TaskDaoJdbc implements TaskDao {
     }
 
     @Override
-    public boolean updateTask(Task task) {
+    public void updateTask(Task task) {
         String sql = "UPDATE tasks SET name = ?, completed = ? WHERE id = ?";
 
         try {
@@ -105,13 +105,9 @@ public class TaskDaoJdbc implements TaskDao {
             statement.setBoolean(2, task.isCompleted());
             statement.setInt(3, task.getId());
 
-            int rowsAffected = statement.executeUpdate();
-
-            return rowsAffected > 0;
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return false;
     }
 }
