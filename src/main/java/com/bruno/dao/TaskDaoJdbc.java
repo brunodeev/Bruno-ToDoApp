@@ -2,6 +2,7 @@ package com.bruno.dao;
 
 import com.bruno.database.DbConnection;
 import com.bruno.model.Task;
+import com.bruno.model.TaskJdbc;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,8 +17,8 @@ public class TaskDaoJdbc implements TaskDao {
 
         try {
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, task.name());
-            statement.setBoolean(2, task.completed());
+            statement.setString(1, task.getName());
+            statement.setBoolean(2, task.isCompleted());
 
             statement.execute();
 
@@ -61,7 +62,7 @@ public class TaskDaoJdbc implements TaskDao {
                 String name = rs.getString("name");
                 boolean completed = rs.getBoolean("completed");
 
-                return new Task(id, name, completed);
+                return new TaskJdbc(id, name, completed);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -84,7 +85,7 @@ public class TaskDaoJdbc implements TaskDao {
                 String name = rs.getString("name");
                 boolean completed = rs.getBoolean("completed");
 
-                tasks.add(new Task(id, name, completed));
+                tasks.add(new TaskJdbc(id, name, completed));
             }
 
         } catch (SQLException e) {
@@ -100,9 +101,9 @@ public class TaskDaoJdbc implements TaskDao {
 
         try {
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, task.name());
-            statement.setBoolean(2, task.completed());
-            statement.setInt(3, task.id());
+            statement.setString(1, task.getName());
+            statement.setBoolean(2, task.isCompleted());
+            statement.setInt(3, task.getId());
 
             int rowsAffected = statement.executeUpdate();
 
