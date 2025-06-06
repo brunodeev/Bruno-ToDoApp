@@ -91,7 +91,6 @@ public interface Page {
 
 - teste:teste
 
-
 ### Fase 9: Conceitos de reflection
 - Crie uma anotação, chamage @Rota que recebe a rota, ex @Rota("/tasks)
 - Fazer scan das classes utilizando https://github.com/classgraph/classgraph
