@@ -1,6 +1,5 @@
-package com.bruno.daoImpl;
+package com.bruno.dao;
 
-import com.bruno.dao.TaskDao;
 import com.bruno.database.DbConnection;
 import com.bruno.model.Task;
 
@@ -8,8 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskDaoImpl implements TaskDao {
-
+public class TaskDaoJdbc implements TaskDao {
     Connection conn = DbConnection.connect();
 
     @Override
@@ -60,10 +58,10 @@ public class TaskDaoImpl implements TaskDao {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                    String name = rs.getString("name");
-                    boolean completed = rs.getBoolean("completed");
+                String name = rs.getString("name");
+                boolean completed = rs.getBoolean("completed");
 
-                    return new Task(id, name, completed);
+                return new Task(id, name, completed);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,8 +76,8 @@ public class TaskDaoImpl implements TaskDao {
         String sql = "SELECT * FROM tasks";
 
         try {
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 int id = rs.getInt("id");

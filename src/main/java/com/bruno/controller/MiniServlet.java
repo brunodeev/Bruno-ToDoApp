@@ -1,7 +1,6 @@
 package com.bruno.controller;
 
-import com.bruno.annotation.Rota;
-import com.bruno.view.*;
+import com.bruno.annotation.Route;
 import com.bruno.model.Page;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ScanResult;
@@ -20,10 +19,10 @@ public class MiniServlet extends HttpServlet {
     @Override
     public void init() {
         try (ScanResult scanResult = new ClassGraph().enableAllInfo().acceptPackages("com.bruno.view").scan()) {
-            scanResult.getClassesWithAnnotation(Rota.class.getName()).forEach(classInfo -> {
+            scanResult.getClassesWithAnnotation(Route.class.getName()).forEach(classInfo -> {
                 try {
                     Class<?> struct = classInfo.loadClass();
-                    Rota route = struct.getAnnotation(Rota.class);
+                    Route route = struct.getAnnotation(Route.class);
 
                     if (Page.class.isAssignableFrom(struct)) {
                         Page page = (Page) struct.getDeclaredConstructor().newInstance();

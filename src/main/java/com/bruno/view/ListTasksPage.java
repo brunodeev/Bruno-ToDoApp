@@ -1,8 +1,8 @@
 package com.bruno.view;
 
-import com.bruno.annotation.Rota;
+import com.bruno.annotation.Route;
 import com.bruno.dao.TaskDao;
-import com.bruno.daoImpl.TaskDaoImpl;
+import com.bruno.dao.TaskDaoJdbc;
 import com.bruno.model.Page;
 import com.bruno.model.Task;
 
@@ -12,9 +12,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
-@Rota("/list")
+@Route("/list")
 public class ListTasksPage implements Page {
-    TaskDao taskDao = new TaskDaoImpl();
+    TaskDao taskDao = new TaskDaoJdbc();
 
     @Override
     public String render(Map<String, Object> parameters) {

@@ -1,6 +1,6 @@
 package com.bruno.view;
 
-import com.bruno.annotation.Rota;
+import com.bruno.annotation.Route;
 import com.bruno.model.Page;
 
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-@Rota("not-found")
+@Route("not-found")
 public class NotFoundPage implements Page {
 
     @Override
