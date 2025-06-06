@@ -1,8 +1,8 @@
 package com.bruno.dao;
 
-import com.bruno.daoImpl.TaskDaoImpl;
 import com.bruno.database.DbInitializer;
-import com.bruno.model.Task;
+import com.bruno.factory.BeanFactory;
+import com.bruno.model.TaskHibernate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,13 +12,15 @@ public class TaskDaoTest {
 
     @BeforeEach
     void init() {
-        taskDao = new TaskDaoImpl();
+        taskDao = BeanFactory.createTaskDao("HIBERNATE");
         DbInitializer.createDatabases();
+
+        taskDao.listAllTasks().forEach(task -> taskDao.removeTaskById(task.getId()));
     }
 
     @Test
     void shouldAddTask() {
-        var task = new Task(null, "Fazer tarefa", false);
+        var task = new TaskHibernate(null, "Fazer tarefa", false);
         var id = taskDao.addTask(task);
         Assertions.assertNotNull(taskDao.getTaskById(id));
         taskDao.removeTaskById(id);
@@ -26,7 +28,7 @@ public class TaskDaoTest {
 
     @Test
     void shouldRemoveTask() {
-        var id = taskDao.addTask(new Task(null, "Task a deletar", false));
+        var id = taskDao.addTask(new TaskHibernate(null, "Task a deletar", false));
         taskDao.removeTaskById(id);
         var tasks = taskDao.listAllTasks();
         Assertions.assertTrue(tasks.isEmpty());
@@ -34,15 +36,16 @@ public class TaskDaoTest {
 
     @Test
     void shouldGetTaskById() {
-        var id = taskDao.addTask(new Task(null, "Task a ser buscada", false));
+        var id = taskDao.addTask(new TaskHibernate(null, "Task a ser buscada", false));
         var task = taskDao.getTaskById(id);
-        Assertions.assertEquals(id, task.id());
+        Assertions.assertEquals(id, task.getId());
+        taskDao.removeTaskById(id);
     }
 
     @Test
     void shouldListAllTasks() {
-        var id1 = taskDao.addTask(new Task(null, "Listar tarefa 1", false));
-        var id2 = taskDao.addTask(new Task(null, "Listar tarefa 2", false));
+        var id1 = taskDao.addTask(new TaskHibernate(null, "Listar tarefa 1", false));
+        var id2 = taskDao.addTask(new TaskHibernate(null, "Listar tarefa 2", false));
         var tasks = taskDao.listAllTasks();
         Assertions.assertEquals(2, tasks.size());
         taskDao.removeTaskById(id1);
@@ -51,8 +54,14 @@ public class TaskDaoTest {
 
     @Test
     void shouldUpdateTasks() {
-        var id1 = taskDao.addTask(new Task(null, "Task sem alteração", false));
-        var updated = taskDao.updateTask(new Task(id1, "Task alterada", true));
-        Assertions.assertTrue(updated);
+        var task1 = new TaskHibernate(null, "Task sem alteração", false);
+        var id1 = taskDao.addTask(task1);
+
+        var task2 = new TaskHibernate(id1, "Task alterada", true);
+        taskDao.updateTask(task2);
+
+        var updatedTask = taskDao.getTaskById(id1);
+
+        Assertions.assertEquals("Task alterada", updatedTask.getName());
     }
 }
