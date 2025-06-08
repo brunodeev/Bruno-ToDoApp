@@ -1,24 +1,43 @@
 package com.bruno;
 
+import com.bruno.config.AppConfig;
 import com.bruno.controller.MiniServlet;
 import com.bruno.database.DbInitializer;
 import com.bruno.middleware.AuthFilter;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
         DbInitializer.createDatabases();
 
-        ServletContextHandler servletHandler = new ServletContextHandler();
-        servletHandler.setContextPath("/custom-mvc");
-        servletHandler.addServlet(new ServletHolder(new MiniServlet()), "/*");
-        servletHandler.addFilter(AuthFilter.class, "/*", null);
+        ServletContextHandler customMvcHandler = new ServletContextHandler();
+        customMvcHandler.setContextPath("/custom-mvc");
+        customMvcHandler.addServlet(new ServletHolder(new MiniServlet()), "/*");
+        customMvcHandler.addFilter(AuthFilter.class, "/*", null);
+
+        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+        context.register(AppConfig.class);
+
+        DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
+
+        ServletHolder springServletHolder = new ServletHolder(dispatcherServlet);
+
+        ServletContextHandler springMvcHandler = new ServletContextHandler();
+        springMvcHandler.setContextPath("/spring-mvc");
+        springMvcHandler.addServlet(springServletHolder, "/*");
+
+        ContextHandlerCollection contexts = new ContextHandlerCollection();
+        contexts.setHandlers(new Handler[]{customMvcHandler, springMvcHandler});
 
         Server server = new Server(8080);
-        server.setHandler(servletHandler);
+        server.setHandler(contexts);
         server.start();
 
         System.out.println("API RODANDO EM http://localhost:8080");
