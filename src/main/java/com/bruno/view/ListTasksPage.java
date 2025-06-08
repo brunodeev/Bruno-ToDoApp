@@ -2,8 +2,6 @@ package com.bruno.view;
 
 import com.bruno.annotation.Route;
 import com.bruno.dao.TaskDao;
-import com.bruno.dao.TaskDaoHibernate;
-import com.bruno.dao.TaskDaoJdbc;
 import com.bruno.factory.BeanFactory;
 import com.bruno.model.Page;
 import com.bruno.model.Task;
@@ -25,7 +23,7 @@ public class ListTasksPage implements Page {
 
         String html;
 
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("templates/list.html")) {
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("templates/custom/list.html")) {
 
             if (input == null) {
                 html = null;
