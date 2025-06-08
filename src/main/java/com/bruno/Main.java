@@ -13,6 +13,7 @@ public class Main {
         DbInitializer.createDatabases();
 
         ServletContextHandler servletHandler = new ServletContextHandler();
+        servletHandler.setContextPath("/custom-mvc");
         servletHandler.addServlet(new ServletHolder(new MiniServlet()), "/*");
         servletHandler.addFilter(AuthFilter.class, "/*", null);
 
