@@ -40,13 +40,13 @@ public class MiniServlet extends HttpServlet {
         String path = request.getPathInfo();
 
         if (path == null || path.equals("/")) {
-            response.sendRedirect("/list");
+            response.sendRedirect("/custom-mvc/list");
             return;
         }
 
         Page page = pageRouter.getOrDefault(path, null);
 
-        if (page == null) page = pageRouter.get("/not-found");
+        if (page == null) page = pageRouter.get("/custom-mvc/not-found");
 
         Map<String, Object> parameters = new HashMap<>();
 

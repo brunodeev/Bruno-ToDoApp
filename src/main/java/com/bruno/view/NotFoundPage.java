@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-@Route("not-found")
+@Route("/not-found")
 public class NotFoundPage implements Page {
 
     @Override

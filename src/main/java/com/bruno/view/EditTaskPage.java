@@ -27,20 +27,20 @@ public class EditTaskPage implements Page {
 
             Task task = taskDao.getTaskById(id);
             if (task == null) {
-                return "<meta http-equiv='refresh' content='0; URL=/not-found'>";
+                return "<meta http-equiv='refresh' content='0; URL=/custom-mvc/not-found'>";
             }
 
             Task updated = new TaskHibernate(id, name == null ? task.getName() : name, concluded);
             taskDao.updateTask(updated);
 
-            return "<meta http-equiv='refresh' content='0; URL=/list'>";
+            return "<meta http-equiv='refresh' content='0; URL=/custom-mvc/list'>";
         }
 
         int id = Integer.parseInt((String) parameters.get("idEdit"));
         Task task = taskDao.getTaskById(id);
 
         if (task == null) {
-            return "<meta http-equiv='refresh' content='0; URL=/not-found'>";
+            return "<meta http-equiv='refresh' content='0; URL=/custom-mvc/not-found'>";
         }
 
         String html;

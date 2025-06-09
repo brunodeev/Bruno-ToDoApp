@@ -26,13 +26,13 @@ public class CreateTaskPage implements Page {
             try {
                 if (!name.isEmpty()) {
                     taskDao.addTask(new TaskHibernate(null, name, Boolean.parseBoolean(concluded)));
-                    return "<meta http-equiv='refresh' content='0; URL=/list'>";
+                    return "<meta http-equiv='refresh' content='0; URL=/custom-mvc/list'>";
                 } else {
-                    return "<meta http-equiv='refresh' content='0; URL=/create'>";
+                    return "<meta http-equiv='refresh' content='0; URL=/custom-mvc/create'>";
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                return "<meta http-equiv='refresh' content='0; URL=/create'>";
+                return "<meta http-equiv='refresh' content='0; URL=/custom-mvc/create'>";
             }
         }
 

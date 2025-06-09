@@ -51,14 +51,14 @@ public class ListTasksPage implements Page {
                         .append("<td>").append(task.isCompleted() ? "Concluído" : "Não concluído").append("</td>")
 
                         .append("<td>")
-                        .append("<form method='get' action='/edit'>")
+                        .append("<form method='get' action='/custom-mvc/edit'>")
                         .append("<input type='hidden' name='idEdit' value='").append(task.getId()).append("'>")
                         .append("<button type='submit' id='edit'>Editar</button>")
                         .append("</form>")
                         .append("</td>")
 
                         .append("<td>")
-                        .append("<form method='get' action='/delete'>")
+                        .append("<form method='get' action='/custom-mvc/delete'>")
                         .append("<input type='hidden' name='idDelete' value='").append(task.getId()).append("'>")
                         .append("<button type='submit' id='delete'>Deletar</button>")
                         .append("</form>")

@@ -20,7 +20,7 @@ public class DeleteTaskPage implements Page {
                 String id = (String) parameters.get("idDelete");
                 taskDao.removeTaskById(Integer.parseInt(id));
 
-                return "<meta http-equiv='refresh' content='0; URL=/list'>";
+                return "<meta http-equiv='refresh' content='0; URL=/custom-mvc/list'>";
             } catch (Exception e) {
                 e.printStackTrace();
             }
