@@ -38,4 +38,11 @@ public class SpringMvcController {
 
         return "redirect:/list";
     }
+
+    @PostMapping("/delete")
+    public String deleteTask(@ModelAttribute("idDelete") Integer id) {
+        taskDao.removeTaskById(id);
+
+        return "redirect:/list";
+    }
 }

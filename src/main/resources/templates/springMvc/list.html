@@ -162,7 +162,7 @@
                     </td>
 
                     <td>
-                        <form method="get">
+                        <form method="post" th:action="@{/delete}">
                             <input type="hidden" name="idDelete" th:value="${task.id}">
                             <button type="submit" id="delete">Deletar</button>
                         </form>
