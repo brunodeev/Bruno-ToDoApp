@@ -1,0 +1,93 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR" style="margin: 0; padding: 0; box-sizing: border-box" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lista de Tarefas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Montserrat', sans-serif;
+        cursor: default;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    main {
+        padding: 20px;
+        flex: 1;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        font-weight: bolder;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-bottom: 5px;
+    }
+
+    input, select, button {
+        width: 200px;
+        height: 30px;
+        padding-left: 10px;
+        border-radius: 10px;
+        border: 1px solid #dddddd;
+        outline: none;
+        margin-bottom: 20px;
+    }
+
+    input {
+        cursor: text;
+    }
+
+    select, button {
+        cursor: pointer;
+    }
+
+    footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80px;
+        background-color: rgb(45, 45, 45);
+        font-size: 12px;
+        color: #959595;
+    }
+</style>
+<body>
+    <main>
+        <h1>Cadastrar Tarefa</h1>
+
+        <form th:action="@{/create}" method="post" th:object="${task}">
+            <label for="name">Nome</label>
+            <input id="name" th:field="*{name}">
+
+            <label for="concluded">Concluído</label>
+            <select id="concluded" required th:field="*{completed}">
+                <option value="false">Não concluído</option>
+                <option value="true">Concluído</option>
+            </select>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+    </main>
+
+    <footer>
+        <span>All Rights Reservlet • Bruno</span>
+    </footer>
+</body>
+</html>

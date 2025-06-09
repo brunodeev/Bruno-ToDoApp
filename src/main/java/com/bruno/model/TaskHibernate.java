@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tasks")
-public class TaskHibernate implements Task{
+public class TaskHibernate implements Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
