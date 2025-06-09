@@ -155,7 +155,7 @@
                     <td th:text="${task.completed} ? 'Concluído' : 'Não concluído'"></td>
 
                     <td>
-                        <form method="get">
+                        <form method="get" th:action="@{/edit}">
                             <input type="hidden" name="idEdit" th:value="${task.id}">
                             <button type="submit" id="edit">Editar</button>
                         </form>

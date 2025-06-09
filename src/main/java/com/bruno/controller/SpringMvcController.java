@@ -17,6 +17,12 @@ public class SpringMvcController {
 
     TaskDao taskDao = BeanFactory.createTaskDao("HIBERNATE");
 
+    @GetMapping("/")
+    public String redirect() {
+
+        return "redirect:/list";
+    }
+
     @GetMapping("/list")
     public String list(Model model) {
         List<Task> tasks = taskDao.listAllTasks();
@@ -42,6 +48,21 @@ public class SpringMvcController {
     @PostMapping("/delete")
     public String deleteTask(@ModelAttribute("idDelete") Integer id) {
         taskDao.removeTaskById(id);
+
+        return "redirect:/list";
+    }
+
+    @GetMapping("/edit")
+    public String editPage(@ModelAttribute("idEdit") Integer id, Model model) {
+        Task task = taskDao.getTaskById(id);
+        model.addAttribute("task", task);
+
+        return "edit";
+    }
+
+    @PostMapping("/edit")
+    public String editTask(@ModelAttribute TaskHibernate task) {
+        taskDao.updateTask(task);
 
         return "redirect:/list";
     }

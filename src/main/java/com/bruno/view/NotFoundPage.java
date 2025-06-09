@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-@Route("/not-found")
+@Route("/custom-mvc/not-found")
 public class NotFoundPage implements Page {
 
     @Override
@@ -16,11 +16,10 @@ public class NotFoundPage implements Page {
 
         String html;
 
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("templates/404.html")) {
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("templates/custom/404.html")) {
 
             if (input == null) {
-                html = null;
-                return html;
+                return null;
             }
 
             html = new String(input.readAllBytes(), StandardCharsets.UTF_8);
