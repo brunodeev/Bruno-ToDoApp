@@ -1,5 +1,8 @@
 package com.bruno.config;
 
+import com.bruno.dao.TaskDao;
+import com.bruno.dao.TaskDaoHibernate;
+import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +17,16 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.bruno.controller")
 public class AppConfig {
+
+    @Bean
+    public TaskDao taskDao(SessionFactory sessionFactory) {
+        return new TaskDaoHibernate(sessionFactory);
+    }
+
+    @Bean
+    public SessionFactory sessionFactory() {
+        return new org.hibernate.cfg.Configuration().configure().buildSessionFactory();
+    }
 
     @Bean
     public ITemplateResolver templateResolver() {
