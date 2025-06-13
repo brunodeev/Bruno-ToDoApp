@@ -18,9 +18,7 @@ public class NotFoundPage implements Page {
 
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("templates/custom/404.html")) {
 
-            if (input == null) {
-                return null;
-            }
+            if (input == null) return null;
 
             html = new String(input.readAllBytes(), StandardCharsets.UTF_8);
         } catch (IOException e) {
