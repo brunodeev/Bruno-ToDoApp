@@ -5,7 +5,9 @@ import com.bruno.config.ServletConfig;
 import com.bruno.config.WebConfig;
 import com.bruno.controller.MiniServlet;
 import com.bruno.database.DbInitializer;
+import com.bruno.middleware.AuthFilter;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -25,6 +27,11 @@ public class Main {
 
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         contextHandler.setContextPath("/");
+
+        FilterHolder authFilter = new FilterHolder(new AuthFilter());
+
+        contextHandler.addFilter(authFilter, "/spring-mvc/*", null);
+        contextHandler.addFilter(authFilter, "/custom-mvc/*", null);
 
         AnnotationConfigWebApplicationContext webContext = new AnnotationConfigWebApplicationContext();
         webContext.setParent(rootContext);

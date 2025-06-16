@@ -41,7 +41,7 @@ public class ListTasksPage implements Page {
         StringBuilder list = new StringBuilder();
 
         if (tasks.isEmpty()) {
-            list.append("<span>Você não tem nenhuma tarefa</span>");
+            list.append("<span>Você não tem nenhuma tarefa... :(</span>");
             html = html.replace("{{TASKS}}", list);
         } else {
             list.append("<table><tr><th>ID</th><th>Descrição</th><th>Concluído</th><th></th><th></th></tr>");
