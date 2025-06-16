@@ -1,19 +1,14 @@
 package com.bruno;
 
-import com.bruno.config.AppConfig;
+import com.bruno.config.RootConfig;
+import com.bruno.config.ServletConfig;
+import com.bruno.config.WebConfig;
 import com.bruno.controller.MiniServlet;
-import com.bruno.dao.TaskDao;
-import com.bruno.dao.TaskDaoHibernate;
 import com.bruno.database.DbInitializer;
-import com.bruno.database.HibernateUtil;
-import com.bruno.factory.BeanFactory;
-import com.bruno.middleware.AuthFilter;
-import com.bruno.model.TaskHibernate;
-import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -22,34 +17,30 @@ public class Main {
     public static void main(String[] args) throws Exception {
         DbInitializer.createDatabases();
 
-        TaskDao taskDao = BeanFactory.createTaskDao("HIBERNATE");
-        taskDao.addTask(new TaskHibernate(null, "Task teste", false));
+        AnnotationConfigApplicationContext rootContext = new AnnotationConfigApplicationContext();
+        rootContext.register(RootConfig.class, ServletConfig.class);
+        rootContext.refresh();
 
-        ServletContextHandler customMvcHandler = new ServletContextHandler();
-        customMvcHandler.setContextPath("/custom-mvc");
-        customMvcHandler.addServlet(new ServletHolder(new MiniServlet()), "/*");
-        customMvcHandler.addFilter(AuthFilter.class, "/*", null);
+        MiniServlet miniServlet = rootContext.getBean(MiniServlet.class);
 
-        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.register(AppConfig.class);
+        ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        contextHandler.setContextPath("/");
 
-        DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
+        AnnotationConfigWebApplicationContext webContext = new AnnotationConfigWebApplicationContext();
+        webContext.setParent(rootContext);
+        webContext.register(WebConfig.class);
 
-        ServletHolder springServletHolder = new ServletHolder(dispatcherServlet);
+        DispatcherServlet dispatcherServlet = new DispatcherServlet(webContext);
+        ServletHolder dispatcherServletHolder = new ServletHolder(dispatcherServlet);
+        contextHandler.addServlet(dispatcherServletHolder, "/spring-mvc/*");
 
-        ServletContextHandler springMvcHandler = new ServletContextHandler();
-        springMvcHandler.setContextPath("/spring-mvc");
-        springMvcHandler.addServlet(springServletHolder, "/*");
-        springMvcHandler.addFilter(AuthFilter.class, "/*", null);
-
-        ContextHandlerCollection contexts = new ContextHandlerCollection();
-        contexts.setHandlers(new Handler[]{customMvcHandler, springMvcHandler});
+        contextHandler.addServlet(new ServletHolder(miniServlet), "/custom-mvc/*");
 
         Server server = new Server(8080);
-        server.setHandler(contexts);
+        server.setHandler(contextHandler);
         server.start();
 
-        System.out.println("API RODANDO EM http://localhost:8080");
+        System.out.println("API RODANDO EM http://localhost:8080/");
         server.join();
     }
 }

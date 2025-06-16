@@ -72,7 +72,7 @@
     <main>
         <h1>Cadastrar Tarefa</h1>
 
-        <form th:action="@{/create}" method="post" th:object="${task}">
+        <form th:action="@{/spring-mvc/create}" method="post" th:object="${task}">
             <label for="name">Nome</label>
             <input id="name" th:field="*{name}">
 

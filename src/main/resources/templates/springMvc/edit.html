@@ -72,7 +72,7 @@
     <main>
         <h1>Editar Tarefa</h1>
 
-        <form th:action="@{/edit}" method="post" th:object="${task}">
+        <form th:action="@{/spring-mvc/edit}" method="post" th:object="${task}">
             <input type="hidden" th:field="*{id}">
 
             <label for="name">Nome</label>

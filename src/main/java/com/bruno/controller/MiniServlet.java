@@ -1,37 +1,37 @@
 package com.bruno.controller;
 
 import com.bruno.annotation.Route;
+import com.bruno.dao.TaskDao;
 import com.bruno.model.Page;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ScanResult;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+@Component
 public class MiniServlet extends HttpServlet {
 
     private final Map<String, Page> pageRouter = new HashMap<>();
 
-    @Override
-    public void init() {
-        try (ScanResult scanResult = new ClassGraph().enableAllInfo().acceptPackages("com.bruno.view").scan()) {
-            scanResult.getClassesWithAnnotation(Route.class.getName()).forEach(classInfo -> {
-                try {
-                    Class<?> struct = classInfo.loadClass();
-                    Route route = struct.getAnnotation(Route.class);
+    public MiniServlet() {}
 
-                    if (Page.class.isAssignableFrom(struct)) {
-                        Page page = (Page) struct.getDeclaredConstructor().newInstance();
-                        pageRouter.put(route.value(), page);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+    public MiniServlet(List<Page> pages) {
+        for (Page page : pages) {
+            Route route = page.getClass().getAnnotation(Route.class);
+
+            if (route != null) {
+                pageRouter.put(route.value(), page);
+            } else {
+                System.err.println("Page sem annotation @Route");
+            }
         }
     }
 

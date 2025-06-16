@@ -155,14 +155,14 @@
                     <td th:text="${task.completed} ? 'Concluído' : 'Não concluído'"></td>
 
                     <td>
-                        <form method="get" th:action="@{/edit}">
+                        <form method="get" th:action="@{/spring-mvc/edit}">
                             <input type="hidden" name="idEdit" th:value="${task.id}">
                             <button type="submit" id="edit">Editar</button>
                         </form>
                     </td>
 
                     <td>
-                        <form method="post" th:action="@{/delete}">
+                        <form method="post" th:action="@{/spring-mvc/delete}">
                             <input type="hidden" name="idDelete" th:value="${task.id}">
                             <button type="submit" id="delete">Deletar</button>
                         </form>

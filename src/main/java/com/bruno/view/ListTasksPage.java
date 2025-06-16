@@ -2,9 +2,10 @@ package com.bruno.view;
 
 import com.bruno.annotation.Route;
 import com.bruno.dao.TaskDao;
-import com.bruno.factory.BeanFactory;
 import com.bruno.model.Page;
 import com.bruno.model.Task;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,10 +13,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
+@Component
 @Route("/list")
 public class ListTasksPage implements Page {
 
-    TaskDao taskDao = BeanFactory.createTaskDao("HIBERNATE");
+    @Autowired
+    private TaskDao taskDao;
 
     @Override
     public String render(Map<String, Object> parameters) {

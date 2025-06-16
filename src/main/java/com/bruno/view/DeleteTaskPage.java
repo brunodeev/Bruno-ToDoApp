@@ -2,15 +2,18 @@ package com.bruno.view;
 
 import com.bruno.annotation.Route;
 import com.bruno.dao.TaskDao;
-import com.bruno.dao.TaskDaoJdbc;
-import com.bruno.factory.BeanFactory;
 import com.bruno.model.Page;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.Map;
 
+@Component
 @Route("/delete")
 public class DeleteTaskPage implements Page {
 
-    TaskDao taskDao = BeanFactory.createTaskDao("HIBERNATE");
+    @Autowired
+    private TaskDao taskDao;
 
     @Override
     public String render(Map<String, Object> parameters) {

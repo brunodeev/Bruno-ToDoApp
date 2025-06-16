@@ -1,7 +1,6 @@
 package com.bruno.dao;
 
 import com.bruno.database.DbInitializer;
-import com.bruno.factory.BeanFactory;
 import com.bruno.model.TaskHibernate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
