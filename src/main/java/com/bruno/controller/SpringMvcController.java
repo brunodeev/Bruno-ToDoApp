@@ -21,7 +21,7 @@ public class SpringMvcController {
     @GetMapping("/")
     public String redirect() {
 
-        return "redirect:/list";
+        return "redirect:/spring-mvc/list";
     }
 
     @GetMapping("/list")

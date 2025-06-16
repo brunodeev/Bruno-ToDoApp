@@ -21,12 +21,10 @@ public class MiniServlet extends HttpServlet {
 
     private final Map<String, Page> pageRouter = new HashMap<>();
 
-    public MiniServlet() {}
-
+    @Autowired
     public MiniServlet(List<Page> pages) {
         for (Page page : pages) {
             Route route = page.getClass().getAnnotation(Route.class);
-
             if (route != null) {
                 pageRouter.put(route.value(), page);
             } else {
