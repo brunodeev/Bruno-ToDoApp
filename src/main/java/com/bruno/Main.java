@@ -3,6 +3,7 @@ package com.bruno;
 import com.bruno.config.RootConfig;
 import com.bruno.config.ServletConfig;
 import com.bruno.config.WebConfig;
+import com.bruno.controller.HomeServlet;
 import com.bruno.controller.MiniServlet;
 import com.bruno.database.DbInitializer;
 import com.bruno.middleware.AuthFilter;
@@ -27,6 +28,8 @@ public class Main {
 
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         contextHandler.setContextPath("/");
+
+        contextHandler.addServlet(new ServletHolder(HomeServlet.class), "/");
 
         FilterHolder authFilter = new FilterHolder(new AuthFilter());
 

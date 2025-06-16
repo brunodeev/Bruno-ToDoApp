@@ -1,19 +1,36 @@
 package com.bruno.dao;
 
+import com.bruno.config.RootConfig;
+import com.bruno.config.ServletConfig;
 import com.bruno.database.DbInitializer;
 import com.bruno.model.TaskHibernate;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import jakarta.persistence.criteria.Root;
+import org.h2.tools.Server;
+import org.junit.jupiter.api.*;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class TaskDaoTest {
-    TaskDao taskDao;
+
+    private static AnnotationConfigApplicationContext context;
+    private TaskDao taskDao;
+
+    @BeforeAll
+    static void setupSpringContext() {
+        context = new AnnotationConfigApplicationContext();
+        context.register(RootConfig.class, ServletConfig.class);
+        context.refresh();
+    }
+
+    @AfterAll
+    static void closeContext() {
+        context.close();
+    }
 
     @BeforeEach
     void init() {
-        taskDao = BeanFactory.createTaskDao("HIBERNATE");
         DbInitializer.createDatabases();
 
+        taskDao = context.getBean(TaskDao.class);
         taskDao.listAllTasks().forEach(task -> taskDao.removeTaskById(task.getId()));
     }
 

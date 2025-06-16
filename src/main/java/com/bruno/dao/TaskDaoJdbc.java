@@ -3,6 +3,7 @@ package com.bruno.dao;
 import com.bruno.database.DbConnection;
 import com.bruno.model.Task;
 import com.bruno.model.TaskJdbc;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
