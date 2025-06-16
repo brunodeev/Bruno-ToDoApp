@@ -18,13 +18,7 @@ public class SpringMvcController {
     @Autowired
     private TaskDao taskDao;
 
-    @GetMapping("/")
-    public String redirect() {
-
-        return "redirect:/spring-mvc/list";
-    }
-
-    @GetMapping("/list")
+    @GetMapping("/spring-mvc/list")
     public String list(Model model) {
         List<Task> tasks = taskDao.listAllTasks();
         model.addAttribute("tasks", tasks);
@@ -32,28 +26,28 @@ public class SpringMvcController {
         return "list";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/spring-mvc/create")
     public String createPage(Model model) {
         model.addAttribute("task", new TaskHibernate());
 
         return "create";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/spring-mvc/create")
     public String createTask(@ModelAttribute TaskHibernate task) {
         taskDao.addTask(task);
 
         return "redirect:/spring-mvc/list";
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/spring-mvc/delete")
     public String deleteTask(@ModelAttribute("idDelete") Integer id) {
         taskDao.removeTaskById(id);
 
         return "redirect:/spring-mvc/list";
     }
 
-    @GetMapping("/edit")
+    @GetMapping("/spring-mvc/edit")
     public String editPage(@ModelAttribute("idEdit") Integer id, Model model) {
         Task task = taskDao.getTaskById(id);
         model.addAttribute("task", task);
@@ -61,7 +55,7 @@ public class SpringMvcController {
         return "edit";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/spring-mvc/edit")
     public String editTask(@ModelAttribute TaskHibernate task) {
         taskDao.updateTask(task);
 

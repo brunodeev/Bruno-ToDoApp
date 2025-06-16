@@ -12,7 +12,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.bruno")
+@ComponentScan(basePackages = {"com.bruno", "com.bruno.security"})
 public class WebConfig {
 
     @Bean
