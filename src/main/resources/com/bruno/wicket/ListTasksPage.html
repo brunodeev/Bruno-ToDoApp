@@ -75,7 +75,7 @@
         border-right: 1px solid #dddddd;
     }
 
-    a {
+    #new {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -88,6 +88,20 @@
         color: black;
         cursor: pointer;
         text-decoration: none;
+    }
+
+    a {
+        text-decoration: none;
+        padding-block: 6px;
+        padding-inline: 8px;
+        font-size: 13px;
+        width: 60px;
+        height: 30px;
+        color: white;
+        border-radius: 6px;
+        outline: none;
+        cursor: pointer;
+        border: 1px solid #dddddd;
     }
 
     button {
@@ -115,11 +129,15 @@
 
     #delete {
         background-color: rgba(255, 0, 0, 0.65);
+        display: flex;
+        justify-content: center;
     }
 
     #edit {
         background-color: rgba(166, 166, 166, 0.65);
         margin-right: 2px;
+        display: flex;
+        justify-content: center;
     }
 
     footer {
@@ -140,6 +158,7 @@
             <div>
                 <table>
                     <tr>
+                        <th>ID</th>
                         <th>Descrição</th>
                         <th>Concluído</th>
                         <th></th>
@@ -147,15 +166,16 @@
                     </tr>
 
                     <tr wicket:id="tasks">
+                        <td><span wicket:id="id"></span></td>
                         <td><span wicket:id="title"></span></td>
                         <td><span wicket:id="completed"></span></td>
-                        <td><button id="edit">Editar</button></td>
-                        <td><button id="delete">Deletar</button></td>
+                        <td><a id="edit" wicket:id="edit">Editar</a></td>
+                        <td><a id="delete" wicket:id="delete">Deletar</a></td>
                     </tr>
                 </table>
             </div>
 
-            <a href="">Nova tarefa</a>
+            <a id="new" href="">Nova tarefa</a>
         </div>
     </main>
 
