@@ -8,13 +8,14 @@ public class WicketApp extends WebApplication {
 
     @Override
     public Class<? extends Page> getHomePage() {
-        return HomePage.class;
+        return ListTasksPage.class;
     }
 
     @Override
     public void init() {
         super.init();
 
+        getCspSettings().blocking().disabled();
         getComponentInstantiationListeners().add(new SpringComponentInjector(this));
     }
 }

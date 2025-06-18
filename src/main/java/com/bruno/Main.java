@@ -4,7 +4,9 @@ import com.bruno.config.RootConfig;
 import com.bruno.config.ServletConfig;
 import com.bruno.config.WebConfig;
 import com.bruno.controller.MiniServlet;
+import com.bruno.dao.TaskDao;
 import com.bruno.database.DbInitializer;
+import com.bruno.model.TaskHibernate;
 import com.bruno.security.SecurityConfig;
 import jakarta.servlet.DispatcherType;
 import org.apache.wicket.protocol.http.WicketFilter;
@@ -25,11 +27,18 @@ public class Main {
     public static void main(String[] args) throws Exception {
         DbInitializer.createDatabases();
 
+
+
         AnnotationConfigApplicationContext rootContext = new AnnotationConfigApplicationContext();
         rootContext.register(RootConfig.class, ServletConfig.class, SecurityConfig.class);
         rootContext.refresh();
 
         MiniServlet miniServlet = rootContext.getBean(MiniServlet.class);
+
+        TaskDao taskDao = rootContext.getBean(TaskDao.class);
+
+        taskDao.addTask(new TaskHibernate(null, "Tarefa Genérica 1", false));
+        taskDao.addTask(new TaskHibernate(null, "Tarefa Genérica 2", false));
 
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         contextHandler.setContextPath("/");
