@@ -4,6 +4,7 @@ import com.bruno.dao.TaskDao;
 import com.bruno.model.Task;
 import com.bruno.model.TaskHibernate;
 import com.bruno.view.EditTaskPage;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
@@ -34,15 +35,13 @@ public class ListTasksPage extends WebPage {
                 item.add(new Link<Void>("edit") {
 
                     @Override
-                    public void onClick() {
-                    }
+                    public void onClick() {}
                 });
 
                 item.add(new Link<Void>("delete") {
 
                     @Override
                     public void onClick() {
-
                         taskDao.removeTaskById(task.getId());
 
                         setResponsePage(ListTasksPage.class);
@@ -51,6 +50,24 @@ public class ListTasksPage extends WebPage {
             }
         };
 
-        add(listView);
+        WebMarkupContainer container = new WebMarkupContainer("taskContainer");
+        container.setOutputMarkupPlaceholderTag(true);
+        container.setVisible(!tasks.isEmpty());
+        container.add(listView);
+
+        add(container);
+
+        add(new Link<Void>("newTask") {
+
+            @Override
+            public void onClick() {
+                setResponsePage(CreateTaskPage.class);
+            }
+        });
+
+        Label noTasksLabel = new Label("noTasksLabel", "Você não tem nenhuma tarefa... :(");
+        noTasksLabel.setVisible(tasks.isEmpty());
+
+        add(noTasksLabel);
     }
 }

@@ -155,7 +155,7 @@
         <h1>Tarefas</h1>
 
         <div class="container">
-            <div>
+            <wicket:container wicket:id="taskContainer">
                 <table>
                     <tr>
                         <th>ID</th>
@@ -173,9 +173,11 @@
                         <td><a id="delete" wicket:id="delete">Deletar</a></td>
                     </tr>
                 </table>
-            </div>
+            </wicket:container>
 
-            <a id="new" href="">Nova tarefa</a>
+            <span wicket:id="noTasksLabel"></span>
+
+            <a wicket:id="newTask" id="new" href="">Nova tarefa</a>
         </div>
     </main>
 
