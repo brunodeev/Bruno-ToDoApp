@@ -4,8 +4,6 @@ import com.bruno.config.RootConfig;
 import com.bruno.config.ServletConfig;
 import com.bruno.database.DbInitializer;
 import com.bruno.model.TaskHibernate;
-import jakarta.persistence.criteria.Root;
-import org.h2.tools.Server;
 import org.junit.jupiter.api.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

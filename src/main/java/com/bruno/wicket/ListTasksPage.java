@@ -3,7 +3,6 @@ package com.bruno.wicket;
 import com.bruno.dao.TaskDao;
 import com.bruno.model.Task;
 import com.bruno.model.TaskHibernate;
-import com.bruno.view.EditTaskPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -35,7 +34,9 @@ public class ListTasksPage extends WebPage {
                 item.add(new Link<Void>("edit") {
 
                     @Override
-                    public void onClick() {}
+                    public void onClick() {
+                        setResponsePage(new EditTaskPage((TaskHibernate) task));
+                    }
                 });
 
                 item.add(new Link<Void>("delete") {
