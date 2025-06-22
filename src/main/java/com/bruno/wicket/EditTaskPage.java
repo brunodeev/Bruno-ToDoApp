@@ -18,7 +18,11 @@ public class EditTaskPage extends WebPage {
     @SpringBean
     private TaskDao taskDao;
 
-    public EditTaskPage(TaskHibernate task) {
+    private final TaskHibernate task;
+
+    public EditTaskPage(Integer id) {
+
+        this.task = (TaskHibernate) taskDao.getTaskById(id);
 
         Model<String> completedModel = Model.of(task.isCompleted() ? "Concluído" : "Não concluído");
 

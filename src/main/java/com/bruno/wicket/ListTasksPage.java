@@ -35,7 +35,7 @@ public class ListTasksPage extends WebPage {
 
                     @Override
                     public void onClick() {
-                        setResponsePage(new EditTaskPage((TaskHibernate) task));
+                        setResponsePage(new EditTaskPage(task.getId()));
                     }
                 });
 
