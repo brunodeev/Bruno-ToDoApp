@@ -27,18 +27,11 @@ public class Main {
     public static void main(String[] args) throws Exception {
         DbInitializer.createDatabases();
 
-
-
         AnnotationConfigApplicationContext rootContext = new AnnotationConfigApplicationContext();
         rootContext.register(RootConfig.class, ServletConfig.class, SecurityConfig.class);
         rootContext.refresh();
 
         MiniServlet miniServlet = rootContext.getBean(MiniServlet.class);
-
-        TaskDao taskDao = rootContext.getBean(TaskDao.class);
-
-        taskDao.addTask(new TaskHibernate(null, "Tarefa Genérica 1", false));
-        taskDao.addTask(new TaskHibernate(null, "Tarefa Genérica 2", false));
 
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         contextHandler.setContextPath("/");

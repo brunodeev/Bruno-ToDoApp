@@ -134,7 +134,7 @@ public interface Page {
 - Recriar as tasks agora em Wicket, adicionar a nova implementação a home
 
 ### Fase 15: Cobertura (💀💀)
-- Proibido usar geradores, aqui a ideia e vc aprender a fazer.
+- Proibido usar geradores, aqui a ideia é vc aprender a fazer.
 - Instalar e configurar o jacoco no projeto (plugin do maven)
 - Cobertura deve ser superior a 60%, implementar os testes até chegar neste valor
 
