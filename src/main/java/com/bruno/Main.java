@@ -24,7 +24,7 @@ import java.util.EnumSet;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static Server startServer() throws Exception {
         DbInitializer.createDatabases();
 
         AnnotationConfigApplicationContext rootContext = new AnnotationConfigApplicationContext();
@@ -64,6 +64,12 @@ public class Main {
         server.setHandler(contextHandler);
         server.start();
 
+        return server;
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        Server server = startServer();
         System.out.println("API RODANDO EM http://localhost:8080/");
         server.join();
     }

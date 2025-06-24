@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DbConnection {
     public static Connection connect() {
         Connection connection;
-        String dbUrl = "jdbc:h2:mem:todo";
+        String dbUrl = "jdbc:h2:mem:todo;DB_CLOSE_DELAY=-1";
         String dbUser = "sa";
         String dbPassword = "";
 
