@@ -7,10 +7,10 @@ import com.bruno.model.TaskHibernate;
 import org.junit.jupiter.api.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class TaskDaoTest {
+public class TaskDaoHibernateTest {
 
     private static AnnotationConfigApplicationContext context;
-    private TaskDao taskDao;
+    private TaskDaoHibernate taskDao;
 
     @BeforeAll
     static void setupSpringContext() {
@@ -28,7 +28,7 @@ public class TaskDaoTest {
     void init() {
         DbInitializer.createDatabases();
 
-        taskDao = context.getBean(TaskDao.class);
+        taskDao = context.getBean(TaskDaoHibernate.class);
         taskDao.listAllTasks().forEach(task -> taskDao.removeTaskById(task.getId()));
     }
 
