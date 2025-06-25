@@ -17,8 +17,11 @@ import java.util.Map;
 @Route("/list")
 public class ListTasksPage implements Page {
 
-    @Autowired
-    private TaskDao taskDao;
+    private final TaskDao taskDao;
+
+    public ListTasksPage(TaskDao taskDao) {
+        this.taskDao = taskDao;
+    }
 
     @Override
     public String render(Map<String, Object> parameters) {
