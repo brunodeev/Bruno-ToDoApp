@@ -15,8 +15,11 @@ import java.util.List;
 @Controller
 public class SpringMvcController {
 
-    @Autowired
-    private TaskDao taskDao;
+    private final TaskDao taskDao;
+
+    public SpringMvcController(TaskDao taskDao) {
+        this.taskDao = taskDao;
+    }
 
     @GetMapping("/spring-mvc/list")
     public String list(Model model) {
