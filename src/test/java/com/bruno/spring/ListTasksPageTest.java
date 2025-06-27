@@ -27,7 +27,7 @@ public class ListTasksPageTest {
     }
 
     @Test
-    public void renderNoTasksMessage() {
+    public void renderWithNoTasksMessageTest() {
         when(taskDaoMock.listAllTasks()).thenReturn(Collections.emptyList());
 
         String html = listTasksPage.render(new HashMap<>());
@@ -38,7 +38,7 @@ public class ListTasksPageTest {
     }
 
     @Test
-    public void renderWithSomeTasks() {
+    public void renderWithSomeTasksTest() {
         List<Task> tasks = List.of(
                 new TaskHibernate(null, "Comprar miojo", false),
                 new TaskHibernate(null, "Ir ao médico", false)
